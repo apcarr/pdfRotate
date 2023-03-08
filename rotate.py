@@ -1,9 +1,9 @@
-import os
 import pathlib
 import PyPDF2
 import sys
 
-def rotate(filepath : pathlib.Path, angle : int) -> None:
+
+def rotate(filepath: pathlib.Path, angle: int) -> None:
     if not filepath.exists():
         print(f'File not found: {filepath}', file=sys.stderr)
         return
@@ -13,7 +13,7 @@ def rotate(filepath : pathlib.Path, angle : int) -> None:
         filepathOut = filepath.parent / filepathOut
     print(f'Source file: {filepath.name}')
     print(f'Rotated file will be saved as: {filepathOut.name}')
-    
+
     try:
         with open(filepath, 'rb') as fin, open(filepathOut, 'wb') as fout:
             reader = PyPDF2.PdfReader(fin)
@@ -25,13 +25,15 @@ def rotate(filepath : pathlib.Path, angle : int) -> None:
             writer.write(fout)
 
     except (FileNotFoundError, PermissionError) as e:
-        print(e, file = sys.stderr)
+        print(e, file=sys.stderr)
 
     return
 
-def main(argv : list[str]):
+
+def main(argv: list[str]):
     filepath = pathlib.Path.home() / 'Lyn Documents/Security/IS Training/Signed/IS_Training_2023.pdf'
     rotate(filepath, 90)
+
 
 if __name__ == '__main__':
     main(sys.argv)
